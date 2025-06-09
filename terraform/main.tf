@@ -40,7 +40,7 @@ resource "aws_security_group" "k8s_sg" {
   }
 }
 
-variable "key_name" {
+variable "mykeypair" {
   type = string
 }
 
@@ -48,7 +48,7 @@ resource "aws_instance" "master" {
   ami           = "ami-0c2b8ca1dad447f8a"
   instance_type = "t2.micro"
   subnet_id     = aws_subnet.main_subnet.id
-  key_name      = var.key_name
+  key_name      = var.mykeypair
   vpc_security_group_ids = [aws_security_group.k8s_sg.id]
 
   user_data = file("../scripts/setup-k8s-master.sh")
@@ -59,7 +59,7 @@ resource "aws_instance" "worker" {
   ami           = "ami-0c2b8ca1dad447f8a"
   instance_type = "t2.micro"
   subnet_id     = aws_subnet.main_subnet.id
-  key_name      = var.key_name
+  key_name      = var.mykeypair
   vpc_security_group_ids = [aws_security_group.k8s_sg.id]
 
   user_data = file("../scripts/setup-k8s-worker.sh")

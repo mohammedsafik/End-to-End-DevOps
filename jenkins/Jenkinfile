@@ -3,7 +3,7 @@ pipeline {
 
   environment {
     AWS_REGION = 'us-east-1'
-    TF_VAR_key_name = 'your-key-name'
+    TF_VAR_key_name = 'mykeypair'
   }
 
   stages {
